@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pLANWISE - Smart Study Scheduler</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Auth Pages -->
+<div id="auth-container" class="auth-container">
+        <!-- Login Section -->
+<section id="login-page" class="auth-card active">
+<div class="auth-header">
+<img src="login.jpg" alt="Login Illustration"
+                    class="auth-img">
+<h2>Welcome to pLANWISE</h2>
+                <p>Login to your account</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-block">Login</button>
+            </form>
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+            </div>
+        </section>
+
+        <!-- Signup Section -->
+        <section id="signup-page" class="auth-card">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join pLANWISE today</p>
+            </div>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-block">Create Account</button>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Main App Container (Hidden by default) -->
+    <div id="app-container" class="container" style="display: none;">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logo.jpg" class="sidebar-logo" alt="Logo">
+                <h2>pLANWISE</h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="menu-item active" data-page="dashboard"><a href="#dashboard">Dashboard</a></li>
+                    <li class="menu-item" data-page="planner"><a href="#planner">Planner</a></li>
+                    <li class="menu-item" data-page="progress"><a href="#progress">Progress Tracker</a></li>
+                    <li class="menu-item reset-sidebar-item"><a href="#" id="sidebar-reset-btn" title="Reset Planner"><span>🔄</span> Reset</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline btn-block">Logout</button>
+            </div>
+        </aside>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn">☰</button>
+        <main class="main-content">
+            <section id="dashboard" class="page active">
+                <header>
+                    <h1>Dashboard</h1>
+                </header>
+                <div class="banner card">
+                    <img src="dashboard.jpg"
+                        alt="Motivational Banner" class="banner-img">
+                    <div class="banner-overlay">
+                        <h2 id="quote">"The secret of getting ahead is getting started."</h2>
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="card streak-card">
+                        <img src="streak.jpg" alt="Streak Icon" class="card-icon">
+                        <h3>Study Streak</h3>
+                        <p><span id="streak-count">0</span> Days</p>
+                    </div>
+                    <div class="card tasks-card">
+                        <img src="task.jpg" alt="Tasks Icon" class="card-icon">
+                        <h3>Today's Tasks</h3>
+                        <ul id="today-tasks"></ul>
+                    </div>
+                    <div class="card progress-overview-card">
+                        <img src="progress.jpg" alt="Progress Icon" class="card-icon">
+                        <h3>Progress Overview</h3>
+                        <div class="progress-bar-container">
+                            <div id="overall-progress-bar" class="progress-bar"></div>
+                        </div>
+                        <p><span id="overall-progress-text">0</span>% Complete</p>
+                    </div>
+                </div>
+            </section>
+            <section id="planner" class="page">
+                <header class="page-header-with-action">
+                    <h1>Study Planner</h1>
+                    <button id="header-reset-btn" class="btn btn-reset btn-sm">
+                        <span class="icon">🗑️</span> Reset Planner
+                    </button>
+                </header>
+                <div class="planner-header-img">
+                    <img src="planner.jpg" alt="Planner Header"
+                        class="header-banner">
+                </div>
+
+                <div id="planner-container" class="planner-container">
+                    <!-- Step 1: How many subjects? -->
+                    <div id="step-1" class="planner-step card active">
+                        <h2>Step 1: Setup Your Subjects</h2>
+                        <div class="form-group">
+                            <label for="subject-count">How many subjects are you studying?</label>
+                            <input type="number" id="subject-count" min="1" max="10" value="1">
+                        </div>
+                        <button id="next-to-step-2" class="btn btn-block">Next: Subject Details</button>
+                    </div>
+
+                    <!-- Step 2: Subject Details -->
+                    <div id="step-2" class="planner-step card">
+                        <h2>Step 2: Subject & Exam Details</h2>
+                        <div id="subject-details-container">
+                            <!-- Dynamic inputs for each subject will be added here -->
+                        </div>
+                        <div class="planner-nav-btns">
+                            <button id="back-to-step-1" class="btn btn-outline">Back</button>
+                            <button id="next-to-step-3" class="btn">Next: Study Hours</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Study Hours -->
+                    <div id="step-3" class="planner-step card">
+                        <h2>Step 3: Finalize Plan</h2>
+                        <div class="form-group">
+                            <label for="total-study-hours">Total study hours per day?</label>
+                            <input type="number" id="total-study-hours" min="1" max="16" value="4">
+                        </div>
+                        <div class="planner-nav-btns">
+                            <button id="back-to-step-2" class="btn btn-outline">Back</button>
+                            <button id="generate-exam-plan" class="btn">Generate Exam Plan</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan-display">
+                    <h2>Generated Smart Plan</h2>
+                    <div id="timetable" class="card table-container">
+                        <!-- Table will be generated here -->
+                    </div>
+                    <button id="reschedule-btn" class="btn btn-block"
+                        style="display: none; margin-top: 20px;">Reschedule Unfinished Tasks</button>
+                </div>
+            </section>
+            <section id="progress" class="page">
+                <header>
+                    <h1>Progress Tracker</h1>
+                </header>
+                <div class="progress-grid">
+                    <div class="card overall-progress-card">
+                        <h3>Overall Completion</h3>
+                        <div class="progress-circle-container">
+                            <div class="progress-circle" id="overall-progress-circle"></div>
+                        </div>
+                        <p><span id="overall-completion-text">0</span>%</p>
+                    </div>
+                    <div class="card subject-progress-card">
+                        <h3>Subject-wise Progress</h3>
+                        <div id="subject-progress-bars"></div>
+                    </div>
+                    <div class="card task-summary-card">
+                        <h3>Task Summary</h3>
+                        <p>Completed: <span id="completed-tasks-count">0</span></p>
+                        <p>Pending: <span id="pending-tasks-count">0</span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div id="mcq-modal" class="modal">
+        <div class="modal-content card">
+            <button id="close-mcq-modal" class="modal-close-btn" title="Close Quiz">&times;</button>
+            <div class="modal-header">
+                <h3>Take AI Test to Complete Task</h3>
+                <p>Verify your knowledge before marking as complete.</p>
+            </div>
+            <div id="mcq-setup-inputs">
+                <div class="form-group">
+                    <label>Confirm Subject</label>
+                    <input type="text" id="mcq-subject-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Topic Studied Today</label>
+                    <input type="text" id="mcq-topic-input" placeholder="e.g., Algebra Basics" required>
+                </div>
+                <button id="start-mcq-test" class="btn btn-block">Start AI Test</button>
+                <p id="mcq-loading-text" style="display: none; text-align: center; margin-top: 15px; color: var(--primary-color); font-weight: 600;">
+                    <span class="spinner">⏳</span> Generating AI Questions...
+                </p>
+            </div>
+            <div id="mcq-test-area" style="display: none;">
+                <div id="mcq-info" style="margin-bottom: 15px; font-weight: 600; color: var(--primary-color);"></div>
+                <div id="mcq-question-card" class="mcq-question-card">
+                    <!-- MCQ questions will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <div class="mcq-progress">
+                        Question <span id="current-question-num">1</span>/10
+                    </div>
+                    <button id="next-mcq-btn" class="btn">Next Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mcq-result-modal" class="modal">
+        <div class="modal-content card text-center">
+            <h2 id="mcq-result-title">Test Result</h2>
+            <div class="mcq-score-display">
+                <span id="mcq-score">0</span>/10
+            </div>
+            <!-- Quiz Progress and Evaluation -->
+            <div class="quiz-evaluation-container" style="margin: 20px 0;">
+                <h3 id="quiz-status" style="font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: var(--primary-color);">Excellent</h3>
+                <div class="progress-bar-container" style="height: 12px; border-radius: 6px; background: rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 5px;">
+                    <div id="quiz-progress-bar" class="progress-bar" style="width: 0%; height: 100%; transition: width 0.5s ease;"></div>
+                </div>
+                <p id="quiz-percentage" style="font-weight: 600; color: var(--text-color);">0% Performance</p>
+            </div>
+
+            <p id="mcq-result-message"></p>
+            <div class="modal-footer">
+                <button id="mcq-ok-btn" class="btn btn-block" style="display: none; margin-top: 15px;">OK</button>
+                <button id="mcq-retry-btn" class="btn btn-outline">Try Again</button>
+                <button id="mcq-finish-btn" class="btn" style="display: none;">Complete Task</button>
+                <button id="mcq-close-btn" class="btn btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
