@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- AI API Configuration (Google AI Studio - Gemini) ---
     // PASTE YOUR GOOGLE AI STUDIO API KEY HERE
-    const API_KEY = "AIzaSyAqRS5xv75OuthgAxD351sAPbpyvjyN6EU"; 
+    const API_KEY = "My_API_KEY"; 
     const GEMINI_MODEL = "gemini-flash-latest"; // Using the stable alias instead of a versioned name
 
     const motivationalQuotes = [
